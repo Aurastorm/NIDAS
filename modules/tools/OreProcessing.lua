@@ -26,23 +26,6 @@ local shouldListen = {listen = false, args = {}}
 local orientation
 local transposerSides = {}
 
-local debugnumber = 0
-local function debugnum(num, y, type)
-    local screenY
-    if y then screenY = y else screenY = 1 end
-    require("term").setCursor(1,screenY)
-    if num ~= nil then
-        if type == "table" then
-            for k, v in pairs(num) do print(k, v) end
-        else
-            print(num)
-        end
-    else
-        print(debugnumber)
-        debugnumber = debugnumber + 1
-    end
-end
-
 local function save()
     local file = io.open("/home/NIDAS/settings/oreFilters", "w")
     file:write(serialization.serialize(oreFilters))
@@ -83,7 +66,7 @@ end
 local function searchFilter(keyword)
     if type(keyword) == "string" then
         for ID, entry in pairs(oreFilters) do
-            if entry.name == keyword then
+            if entry.label == keyword then
                 return ID
             end
         end
